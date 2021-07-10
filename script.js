@@ -1,4 +1,4 @@
-function generator(matLen, gr, grEat,pr, titan, ab) {
+function generator(matLen, gr, grEat,pr, titan, ab, tree, lumberjack) {
     let matrix = [];
     for (let i = 0; i < matLen; i++) {
         matrix[i] = [];
@@ -41,18 +41,34 @@ function generator(matLen, gr, grEat,pr, titan, ab) {
             matrix[x][y] = 5;
         }
     }
+    for (let i = 0; i < tree; i++) {
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
+        if (matrix[x][y] == 0) {
+            matrix[x][y] = 6;
+        }
+    }
+    for (let i = 0; i < lumberjack; i++) {
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
+        if (matrix[x][y] == 0) {
+            matrix[x][y] = 7;
+        }
+    }
     return matrix;
 }
 
 let side = 20;
 
-let matrix = generator(20, 10, 20, 3, 3, 6);
+let matrix = generator(20, 70, 20, 3, 3, 6, 15, 3);
 
 var grassArr = []
 var grassEaterArr = []
 var predatorArr = []
 var titansArr = []
 var abyssArr = []
+var treesArr = []
+var lumberjackArr = []
 
 function setup() {
     frameRate(5);
@@ -83,6 +99,14 @@ function setup() {
                 var predat = new Abyss(x, y)
                 abyssArr.push(predat)
             }
+            else if (matrix[y][x] == 6) {
+                var tree = new Tree(x, y)
+                treesArr.push(tree)
+            }
+            else if (matrix[y][x] == 6) {
+                var lumberjack = new Lumberjack(x, y)
+                lumberjackArr.push(lumberjack)
+            }
 
         }
     } 
@@ -93,17 +117,19 @@ function draw() {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
-            if (matrix[y][x] == 1) {
+            if (matrix[y][x] == 0) {
+                fill("#acacac");
+                rect(x * side, y * side, side, side);
+            }
+            else if (matrix[y][x] == 1) {
                 fill("green");
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 2) {
                 fill("yellow");
                 rect(x * side, y * side, side, side);
-            } else if (matrix[y][x] == 0) {
-                fill("#acacac");
-                rect(x * side, y * side, side, side);
-            } else if (matrix[y][x] == 3) {
+            } 
+            else if (matrix[y][x] == 3) {
                 fill("red");
                 rect(x * side, y * side, side, side);
             }
@@ -115,13 +141,20 @@ function draw() {
                 fill("black");
                 rect(x * side, y * side, side, side);
             }
+            else if (matrix[y][x] == 6) {
+                fill("brown");
+                rect(x * side, y * side, side, side);
+            }
+            else if (matrix[y][x] == 7) {
+                fill("darkblue");
+                rect(x * side, y * side, side, side);
+            }
 
         }
     }
 
     for (var i in grassArr) {
         grassArr[i].mul();
-
     }
     for (var i in grassEaterArr) {
         grassEaterArr[i].mul();
@@ -136,5 +169,9 @@ function draw() {
     }
     for (var j in abyssArr) {
         abyssArr[j].eat();
+    }
+    for (var i in lumberjackArr) {
+        lumberjackArr[i].move();
+        lumberjackArr[i].cutDown();
     }
 }

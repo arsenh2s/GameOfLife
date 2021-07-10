@@ -1,7 +1,9 @@
 class GrassEater extends LivingCreature{
     constructor(x, y) {
+        super(x,y)
         this.multiply = 0
-        super.constructor(x,y)
+        this.energy = 6
+
     }
 
     getNewCoordinates() {
@@ -19,7 +21,7 @@ class GrassEater extends LivingCreature{
 
     chooseCell(character) {
         this.getNewCoordinates()
-        return super.chooseCell(charecter)
+        return super.chooseCell(character)
     }
 
     mul() {

@@ -1,6 +1,6 @@
 class Predator extends LivingCreature{
     constructor(x, y) {
-        super.constructor(x, y)
+        super(x,y)
         this.energy = 10;
         this.multiply = 0
     }
@@ -20,7 +20,7 @@ class Predator extends LivingCreature{
 
     chooseCell(character) {
         this.getNewCoordinates()
-        super.chooseCell(charecter)
+        return super.chooseCell(character)
     }
 
     mul() {
