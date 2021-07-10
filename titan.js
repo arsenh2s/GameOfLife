@@ -1,6 +1,6 @@
-class Titan extends LivingCreature{
+class Titan extends LivingCreature {
     constructor(x, y) {
-        super(x,y)
+        super(x, y)
     }
 
     getNewCoordinates() {
@@ -25,7 +25,7 @@ class Titan extends LivingCreature{
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
                 if (matrix[y][x] == charecter) {
                     found.push(this.directions[i]);
-               }
+                }
             }
         }
         return found;
@@ -43,7 +43,7 @@ class Titan extends LivingCreature{
 
         var emptyCells0 = this.chooseCell(0)
         var newCell0 = random(emptyCells0)
-        
+
 
         if (newCell) {
             var newX = newCell[0]

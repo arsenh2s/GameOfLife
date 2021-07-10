@@ -4,12 +4,12 @@ class Abyss {
         this.y = y;
         this.directions = [
             [this.x - 1, this.y - 1],
-            [this.x    , this.y - 1],
+            [this.x, this.y - 1],
             [this.x + 1, this.y - 1],
-            [this.x - 1, this.y    ],
-            [this.x + 1, this.y    ],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
             [this.x - 1, this.y + 1],
-            [this.x    , this.y + 1],
+            [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
         ];
 
@@ -27,7 +27,7 @@ class Abyss {
         }
         return found;
     }
-    eat(){
+    eat() {
         var emptyCells2 = this.chooseCell(2)
         var newCell2 = random(emptyCells2)
 
@@ -36,13 +36,13 @@ class Abyss {
 
         var emptyCells4 = this.chooseCell(4)
         var newCell4 = random(emptyCells4)
-        
 
 
-        if(newCell2){
+
+        if (newCell2) {
             var newX = newCell2[0]
             var newY = newCell2[1]
-            
+
             matrix[newY][newX] = 0
             for (var i in grassEaterArr) {
                 if (this.x == grassEaterArr[i].x && this.y == grassEaterArr[i].y) {
@@ -51,10 +51,10 @@ class Abyss {
                 }
             }
         }
-        else if(newCell3){
+        else if (newCell3) {
             var newX = newCell3[0]
             var newY = newCell3[1]
-            
+
             matrix[newY][newX] = 0
             for (var i in predatorArr) {
                 if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {
@@ -63,10 +63,10 @@ class Abyss {
                 }
             }
         }
-        else if(newCell4){
+        else if (newCell4) {
             var newX = newCell4[0]
             var newY = newCell4[1]
-            
+
             matrix[newY][newX] = 0
             for (var i in titansArr) {
                 if (this.x == titansArr[i].x && this.y == titansArr[i].y) {
