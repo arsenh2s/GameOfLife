@@ -1,7 +1,6 @@
-class Lumberjack extends LivingCreature{
-    constructor(x,y){
-        super(x,y)
-        this.energy = 10
+class Lumberjack extends LivingCreature {
+    constructor(x, y) {
+        super(x, y)
     }
     getNewCoordinates() {
         this.directions = [
@@ -20,11 +19,10 @@ class Lumberjack extends LivingCreature{
         return super.chooseCell(character)
     }
     move() {
-        this.energy--
         var emptyCells = this.chooseCell(0)
         var newCell = random(emptyCells)
 
-        if (newCell && this.energy > 0) {
+        if (newCell) {
             var newX = newCell[0]
             var newY = newCell[1]
             matrix[newY][newX] = matrix[this.y][this.x]
@@ -32,27 +30,20 @@ class Lumberjack extends LivingCreature{
             this.x = newX
             this.y = newY
         }
-        else if (this.energy <= 0) {
-                this.rest(10)
-            }
     }
-    rest(time){
-        for(var i = 0; i < time; i++){
-            this.energy++
-        }
-    }
-    cutDown(){
+    cutDown() {
         let treeCells = this.chooseCell(6)
         let chosenTree = random(treeCells)
-        if(chosenTree && this.energy > 0){
+        if (chosenTree) {
             let cuttedTreeX = chosenTree[0]
             let cuttedTreeY = chosenTree[1]
-            matrix[cuttedTreeX][cuttedTreeY] = 0
-        }
-        for (var i in treesArr) {
-            if (cuttedTreeX == treesArr[i].x && cuttedTreeY == treesArr[i].y) {
-                treesArr.splice(i, 1)
-                break
+            matrix[cuttedTreeY][cuttedTreeX] = 0
+
+            for (var i in treesArr) {
+                if (cuttedTreeX == treesArr[i].x && cuttedTreeY == treesArr[i].y) {
+                    treesArr.splice(i, 1)
+                    break
+                }
             }
         }
     }

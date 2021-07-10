@@ -1,4 +1,4 @@
-function generator(matLen, gr, grEat,pr, titan, ab, tree, lumberjack) {
+function generator(matLen, gr, grEat, pr, titan, ab, tree, lumberjack) {
     let matrix = [];
     for (let i = 0; i < matLen; i++) {
         matrix[i] = [];
@@ -103,13 +103,13 @@ function setup() {
                 var tree = new Tree(x, y)
                 treesArr.push(tree)
             }
-            else if (matrix[y][x] == 6) {
+            else if (matrix[y][x] == 7) {
                 var lumberjack = new Lumberjack(x, y)
                 lumberjackArr.push(lumberjack)
             }
 
         }
-    } 
+    }
 }
 
 function draw() {
@@ -128,7 +128,7 @@ function draw() {
             else if (matrix[y][x] == 2) {
                 fill("yellow");
                 rect(x * side, y * side, side, side);
-            } 
+            }
             else if (matrix[y][x] == 3) {
                 fill("red");
                 rect(x * side, y * side, side, side);
@@ -146,7 +146,7 @@ function draw() {
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 7) {
-                fill("darkblue");
+                fill("purple");
                 rect(x * side, y * side, side, side);
             }
 
@@ -170,6 +170,7 @@ function draw() {
     for (var j in abyssArr) {
         abyssArr[j].eat();
     }
+
     for (var i in lumberjackArr) {
         lumberjackArr[i].move();
         lumberjackArr[i].cutDown();
