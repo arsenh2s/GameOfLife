@@ -1,4 +1,4 @@
-class Abyss {
+module.exports = class Abyss {
     constructor(x, y, ) {
         this.x = x;
         this.y = y;
@@ -29,13 +29,13 @@ class Abyss {
     }
     eat() {
         var emptyCells2 = this.chooseCell(2)
-        var newCell2 = random(emptyCells2)
+        var newCell2 = emptyCells2[Math.floor(Math.random() * emptyCells2.length)]
 
         var emptyCells3 = this.chooseCell(3)
-        var newCell3 = random(emptyCells3)
+        var newCell3 = emptyCells3[Math.floor(Math.random() * emptyCells3.length)]
 
         var emptyCells4 = this.chooseCell(4)
-        var newCell4 = random(emptyCells4)
+        var newCell4 = emptyCells4[Math.floor(Math.random() * emptyCells4.length)]
 
 
 
@@ -75,29 +75,5 @@ class Abyss {
                 }
             }
         }
-
-
-
-        // for (var i in grassEaterArr) {
-        //     if (newX == grassEaterArr[i].x || predatorArr && newY == grassEaterArr[i].y) {
-        //         grassEaterArr.splice(i, 1)
-        //         break
-        //     }
-        // }
-        // for (var i in predatorArr) {
-        //     if (newX == predatorArr[i].x || predatorArr && newY == predatorArr[i].y) {
-        //         predatorArr.splice(i, 1)
-        //         break
-        //     }
-        // }
-        // for (var i in titansArr) {
-        //     if (newX == titansArr[i].x || titansArr && newY == titansArr[i].y) {
-        //         titansArr.splice(i, 1)
-        //         break
-        //     }
-        // }
-
-
-
     }
 }

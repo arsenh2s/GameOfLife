@@ -1,4 +1,6 @@
-class Titan extends LivingCreature {
+let LivingCreature = require('./class')
+
+module.exports = class Titan extends LivingCreature {
     constructor(x, y) {
         super(x, y)
     }
@@ -33,16 +35,16 @@ class Titan extends LivingCreature {
 
     eat() {
         var emptyCells = this.chooseCell(3)
-        var newCell = random(emptyCells)
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         var emptyCells1 = this.chooseCell(1)
-        var newCell1 = random(emptyCells1)
+        var newCell1 = emptyCells1[Math.floor(Math.random() * emptyCells1.length)]
 
         var emptyCells2 = this.chooseCell(2)
-        var newCell2 = random(emptyCells2)
+        var newCell2 = emptyCells2[Math.floor(Math.random() * emptyCells2.length)]
 
         var emptyCells0 = this.chooseCell(0)
-        var newCell0 = random(emptyCells0)
+        var newCell0 = emptyCells0[Math.floor(Math.random() * emptyCells0.length)]
 
 
         if (newCell) {

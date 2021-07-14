@@ -1,4 +1,6 @@
-class Lumberjack extends LivingCreature {
+let LivingCreature = require('./class')
+
+module.exports = class Lumberjack extends LivingCreature {
     constructor(x, y) {
         super(x, y)
     }
@@ -20,7 +22,7 @@ class Lumberjack extends LivingCreature {
     }
     move() {
         var emptyCells = this.chooseCell(0)
-        var newCell = random(emptyCells)
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         if (newCell) {
             var newX = newCell[0]
@@ -33,7 +35,7 @@ class Lumberjack extends LivingCreature {
     }
     cutDown() {
         let treeCells = this.chooseCell(6)
-        let chosenTree = random(treeCells)
+        let chosenTree = treeCells[Math.floor(Math.random() * treeCells.length)]
         if (chosenTree) {
             let cuttedTreeX = chosenTree[0]
             let cuttedTreeY = chosenTree[1]
