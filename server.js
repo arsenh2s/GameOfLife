@@ -9,7 +9,7 @@ server.listen(3000)
 app.use(express.static('.'))
 
 app.get('/', function (res) {
-    res.redirect('index1.html')
+    res.redirect('index.html')
 })
 
 
@@ -87,6 +87,7 @@ abyssArr = []
 treesArr = []
 lumberjackArr = []
 
+
 Grass = require('./grass')
 GrassEater = require("./grassEater")
 Predator = require("./predator")
@@ -129,9 +130,14 @@ function createObject(matrix) {
                 var lumberjack = new Lumberjack(x, y)
                 lumberjackArr.push(lumberjack)
             }
-
         }
     }
+    io.sockets.emit("send grass", grassArr)
+    io.sockets.emit("send grassEater", grassEaterArr)
+    io.sockets.emit("send predator", predatorArr)
+    io.sockets.emit("send titans", titansArr)
+    io.sockets.emit("send abyss", abyssArr)
+    io.sockets.emit("send lumberjack", lumberjackArr)
 
     io.sockets.emit('send matrix', matrix)
 
@@ -162,6 +168,13 @@ function game() {
         lumberjackArr[i].move();
         lumberjackArr[i].cutDown();
     }
+
+    io.sockets.emit("send grass", grassArr)
+    io.sockets.emit("send grass", grassEaterArr)
+    io.sockets.emit("send grass", predatorArr)
+    io.sockets.emit("send grass", titansArr)
+    io.sockets.emit("send grass", abyssArr)
+    io.sockets.emit("send grass", lumberjackArr)
 
     io.sockets.emit("send matrix", matrix);
 }

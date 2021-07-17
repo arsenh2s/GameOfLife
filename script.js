@@ -3,7 +3,7 @@ var socket = io();
 let side = 20;
 
 function setup() {
-    frameRate(5)
+    frameRate(20)
     createCanvas(30 * side, 30 * side);
     background('#acacac');
 }
@@ -47,11 +47,36 @@ function nkarel(matrix) {
 
         }
     }
-
+    socket.on("send grass", showGrass)
+    socket.on("send grassEater", showGrassEater)
+    socket.on("send predator", showPredator)
+    socket.on("send titans", showTitan)
+    socket.on("send abyss", showAbyss)
+    socket.on("send lumberjack", showLumberjack)
 }
 
 setInterval(
     function () {
-    socket.on('send matrix', nkarel)
-    },1000
+        socket.on('send matrix', nkarel)
+    }, 1000
 )
+
+
+function showGrass(a) {
+    document.getElementsByClassName('table_grass').innerHTML = a.length + ""
+}
+function showGrassEater(a) {
+    document.getElementsByClassName('table_grassEater').innerText = a.length + ""
+}
+function showPredator(a) {
+    document.getElementsByClassName('table_predator').innerHTML = a.length + ""
+}
+function showTitan(a) {
+    document.getElementsByClassName('table_titan').innerHTML = a.length + ""
+}
+function showAbyss(a) {
+    document.getElementsByClassName('table_abyss').innerHTML = a.length
+}
+function showLumberjack(a) {
+    document.getElementsByClassName('table_lumberjack').innerHTML = a.length
+}
