@@ -66,7 +66,7 @@ function showGrass(a) {
     document.getElementsByClassName('table_grass').innerHTML = a.length + ""
 }
 function showGrassEater(a) {
-    document.getElementsByClassName('table_grassEater').innerText = a.length + ""
+    document.getElementsByClassName('table_grassEater').innerHTML = a.length + ""
 }
 function showPredator(a) {
     document.getElementsByClassName('table_predator').innerHTML = a.length + ""

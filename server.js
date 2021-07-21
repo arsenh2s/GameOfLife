@@ -119,8 +119,8 @@ function createObject(matrix) {
                 titansArr.push(t)
             }
             else if (matrix[y][x] == 5) {
-                var predat = new Abyss(x, y)
-                abyssArr.push(predat)
+                let abs = new Abyss(x, y)
+                abyssArr.push(abs)
             }
             else if (matrix[y][x] == 6) {
                 var tree = new Tree(x, y)
@@ -132,12 +132,6 @@ function createObject(matrix) {
             }
         }
     }
-    io.sockets.emit("send grass", grassArr)
-    io.sockets.emit("send grassEater", grassEaterArr)
-    io.sockets.emit("send predator", predatorArr)
-    io.sockets.emit("send titans", titansArr)
-    io.sockets.emit("send abyss", abyssArr)
-    io.sockets.emit("send lumberjack", lumberjackArr)
 
     io.sockets.emit('send matrix', matrix)
 
@@ -163,20 +157,17 @@ function game() {
     for (var j in abyssArr) {
         abyssArr[j].eat();
     }
-
     for (var i in lumberjackArr) {
         lumberjackArr[i].move();
         lumberjackArr[i].cutDown();
     }
 
-    io.sockets.emit("send grass", grassArr)
-    io.sockets.emit("send grass", grassEaterArr)
-    io.sockets.emit("send grass", predatorArr)
-    io.sockets.emit("send grass", titansArr)
-    io.sockets.emit("send grass", abyssArr)
-    io.sockets.emit("send grass", lumberjackArr)
+    fs.writeFileSync("statistics.txt", grassArr.length + ", " + grassEaterArr.length + ", " + predatorArr.length + ", " + titansArr.length + ", " + abyssArr.length + ", " + lumberjackArr.length + " ")
 
     io.sockets.emit("send matrix", matrix);
+
+    var readME = fs.readFileSync("statistics.txt", {encoding: 'utf8'})
+    console.log(readME)
 }
 
 
