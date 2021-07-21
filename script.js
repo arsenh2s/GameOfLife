@@ -8,6 +8,10 @@ function setup() {
     background('#acacac');
 }
 
+socket.on('send season', function(data) {
+    currentSeason = data
+})
+
 function nkarel(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
@@ -17,7 +21,10 @@ function nkarel(matrix) {
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 1) {
-                fill("green");
+                if(currentSeason == 'summer') fill('#009300')
+                else if(currentSeason == 'automn') fill('#B9D500')
+                else if(currentSeason == 'winter') fill('#D8EDD8')
+                else if(currentSeason == 'spring') fill('#00CD1B')
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 2) {
@@ -47,12 +54,6 @@ function nkarel(matrix) {
 
         }
     }
-    socket.on("send grass", showGrass)
-    socket.on("send grassEater", showGrassEater)
-    socket.on("send predator", showPredator)
-    socket.on("send titans", showTitan)
-    socket.on("send abyss", showAbyss)
-    socket.on("send lumberjack", showLumberjack)
 }
 
 setInterval(
@@ -62,21 +63,8 @@ setInterval(
 )
 
 
-function showGrass(a) {
-    document.getElementsByClassName('table_grass').innerHTML = a.length + ""
-}
-function showGrassEater(a) {
-    document.getElementsByClassName('table_grassEater').innerHTML = a.length + ""
-}
-function showPredator(a) {
-    document.getElementsByClassName('table_predator').innerHTML = a.length + ""
-}
-function showTitan(a) {
-    document.getElementsByClassName('table_titan').innerHTML = a.length + ""
-}
-function showAbyss(a) {
-    document.getElementsByClassName('table_abyss').innerHTML = a.length
-}
-function showLumberjack(a) {
-    document.getElementsByClassName('table_lumberjack').innerHTML = a.length
+function burnGrass() {
+
+    socket.emit('send burnGrass')
+
 }

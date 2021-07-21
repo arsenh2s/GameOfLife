@@ -12,10 +12,19 @@ app.get('/', function (res) {
     res.redirect('index.html')
 })
 
+season = "summer"
 
+setInterval(function () {
+    if (season == 'summer') season = 'automn'
+    else if (season == 'automn') season = 'winter'
+    else if (season == 'winter') season = 'spring'
+    else if (season == 'spring') season = 'summer'
+
+    io.emit('send season', season)
+}, 6000)
 
 function generator(matLen, gr, grEat, pr, titan, ab, tree, lumberjack) {
-    let matrix = [];
+    matrix = [];
     for (let i = 0; i < matLen; i++) {
         matrix[i] = [];
         for (let j = 0; j < matLen; j++) {
@@ -73,6 +82,11 @@ function generator(matLen, gr, grEat, pr, titan, ab, tree, lumberjack) {
     }
     return matrix;
 }
+
+
+
+
+
 
 matrix = generator(30, 300, 20, 3, 3, 6, 15, 3);
 
@@ -166,13 +180,32 @@ function game() {
 
     io.sockets.emit("send matrix", matrix);
 
-    var readME = fs.readFileSync("statistics.txt", {encoding: 'utf8'})
+    var readME = fs.readFileSync("statistics.txt", { encoding: 'utf8' })
     console.log(readME)
 }
 
 
 setInterval(game, 1000)
 
+flag = true
+
 io.on('connection', function (socket) {
-    createObject(matrix)
+    if (flag) {
+        createObject(matrix)
+        flag = false
+    }
+})
+
+
+io.on('send burnGrass', function(){
+    console.log('11111')
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            if(matrix[y][x] == 1){
+                matrix[y][x] = 0
+                grassArr = []
+            }
+        }
+    }
+
 })
