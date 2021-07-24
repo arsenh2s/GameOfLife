@@ -56,15 +56,12 @@ function nkarel(matrix) {
     }
 }
 
-setInterval(
-    function () {
-        socket.on('send matrix', nkarel)
-    }, 1000
-)
+socket.on('send matrix', nkarel)
 
 
 function burnGrass() {
-
     socket.emit('send burnGrass')
-
+}
+function explode(){
+    socket.emit('send explode')
 }

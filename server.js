@@ -4,6 +4,8 @@ let server = require('http').Server(app)
 var io = require('socket.io')(server);
 var fs = require("fs");
 
+
+
 server.listen(3000)
 
 app.use(express.static('.'))
@@ -194,18 +196,93 @@ io.on('connection', function (socket) {
         createObject(matrix)
         flag = false
     }
+
+    socket.on("send burnGrass", kill)
+    socket.on('send explode', explode)
 })
 
 
-io.on('send burnGrass', function(){
-    console.log('11111')
+function kill() {
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
-            if(matrix[y][x] == 1){
+            if (matrix[y][x] == 1) {
                 matrix[y][x] = 0
-                grassArr = []
             }
         }
     }
 
-})
+    grassArr = []
+
+}
+function explode() {
+    var x = 10
+    var y = 10
+    let directions = [
+        [x, y],
+        [x - 1, y - 1],
+        [x, y - 1],
+        [x + 1, y - 1],
+        [x - 1, y],
+        [x + 1, y],
+        [x - 1, y + 1],
+        [x, y + 1],
+        [x + 1, y + 1],
+        [x, y - 2],
+        [x - 1, y - 2],
+        [x - 2, y - 2],
+        [x - 2, y - 1],
+        [x - 2, y],
+        [x - 2, y + 1],
+        [x - 2, y + 2],
+        [x - 1, y + 2],
+        [x, y + 2],
+        [x + 1, y + 2],
+        [x + 2, y + 2],
+        [x + 2, y + 1],
+        [x + 2, y],
+        [x + 2, y - 1],
+        [x + 2, y - 2],
+        [x + 1, y - 2],
+    ];
+
+    for (let j in directions){
+        console.log(directions);
+        
+        boomX = directions[j][0]
+        boomY = directions[j][1]
+       
+        if (matrix[boomY][boomX] == 1){
+            for (var i in grassArr) {
+                if (boomX == grassArr[i].x && boomX == grassArr[i].y) {
+                    grassArr.splice(i, 1)
+                    break
+                }
+            }
+        }
+        else if (matrix[boomY][boomX] == 2){
+            for (var i in grassEaterArr) {
+                if (boomX == grassEaterArr[i].x && boomY == grassEaterArr[i].y) {
+                    grassEaterArr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+        else if (matrix[boomY][boomX] == 3){
+            for (var i in predatorArr) {
+                if (boomX == predatorArr[i].x && boomY == predatorArr[i].y) {
+                    predatorArr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+        else if (matrix[boomY][boomX] == 4){
+        }
+        else if (matrix[boomY][boomX] == 5){
+        }
+        
+        matrix[boomY][boomX] = 0
+    }
+
+
+}
